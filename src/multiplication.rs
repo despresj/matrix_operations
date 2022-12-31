@@ -42,4 +42,5 @@ fn test_matrix_multiplication() {
     assert_eq!(c[(0, 1)], 64.0);
     assert_eq!(c[(1, 0)], 139.0);
     assert_eq!(c[(1, 1)], 154.0);
+    // make sure this panics on mismatched cols
 }
