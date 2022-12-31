@@ -42,5 +42,13 @@ fn test_matrix_multiplication() {
     assert_eq!(c[(0, 1)], 64.0);
     assert_eq!(c[(1, 0)], 139.0);
     assert_eq!(c[(1, 1)], 154.0);
-    // make sure this panics on mismatched cols
+}
+
+#[test]
+#[should_panic]
+fn test_invalid_matrices_multiplication() {
+    use ndarray::arr2;
+    let a = arr2(&[[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [4.0, 5.0, 6.0]]);
+    let b = arr2(&[[7.0, 8.0], [9.0, 10.0], [11.0, 12.0]]);
+    let _ = matrix_multiply(&a, &b);
 }

@@ -30,5 +30,13 @@ fn test_norm_mat() {
     let b = norm_mat(0.0, 1.0, 9, 1);
     assert_eq!(b.nrows(), 9);
     assert_eq!(b.ncols(), 1);
-    // todo : check this panics on negative sigma
+}
+
+#[test]
+#[should_panic]
+fn test_input_invalad_norm_mat() {
+    let _ = norm_mat(0.0, -1.0, 2, 2);
+    let _ = norm_mat(0.0, 0.0, 2, 2);
+    let _ = norm_mat(0.0, 1.0, 2, 0);
+    let _ = norm_mat(0.0, 1.0, 0, 2);
 }
