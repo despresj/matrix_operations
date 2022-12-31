@@ -22,6 +22,7 @@ fn norm_mat(mu: f64, sigma: f64, nrow: usize, ncol: usize) -> Array2<f64> {
 
     matrix
 }
+
 fn main() {
     let dims = 100;
     let start = Instant::now();
