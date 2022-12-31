@@ -1,23 +1,28 @@
-use ndarray::{arr2, Array2};
-use rand::distributions::Standard;
-use rand::prelude::*;
+use ndarray::Array2;
+use rand::thread_rng;
+use rand_distr::{Distribution, Normal};
 
 fn main() {
-    let a = arr2(&[[1, 2, 3], [4, 5, 6]]);
-
-    let b = arr2(&[[6, 5, 4], [3, 2, 1]]);
-
-    start_here(&a, &b);
-
-    let val: [u64; 8] = StdRng::from_entropy().sample(Standard);
-    println!("f32 from [0, 1): {:?}", val);
+    let a = norm_mat(0., 1., 1, 3);
+    let b = norm_mat(4., 5., 3, 20);
+    println!("{},\n{}", a, b);
 }
 
-fn start_here(a: &Array2<i32>, b: &Array2<i32>) {
-    for number in a {
-        println!("number A {}", number)
+fn norm_mat(mu: f64, sigma: f64, nrow: usize, ncol: usize) -> Array2<f64> {
+    assert!(sigma > 0., "sigma must be greater than zero");
+    assert!(nrow > 0, "must have a non zero number of rows");
+    assert!(ncol > 0, "must have a non zero number of columns");
+
+    let mut rng = thread_rng();
+    let normal = Normal::new(mu, sigma).expect("mu and sigma are real and sigma is greater than 0");
+
+    let mut matrix = Array2::<f64>::zeros((nrow, ncol));
+
+    for i in 0..nrow {
+        for j in 0..ncol {
+            matrix[(i, j)] = normal.sample(&mut rng);
+        }
     }
-    for number in b {
-        println!("number B {}", number)
-    }
+
+    matrix
 }
